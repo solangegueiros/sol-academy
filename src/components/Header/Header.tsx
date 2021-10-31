@@ -2,11 +2,16 @@ import { memo, useEffect, useState } from 'react';
 import Image from 'next/image';
 import b4hvector from '@/../public/images/b4h_vector.svg';
 import { useTheme } from 'next-themes';
+import { useTranslation } from 'next-i18next';
+import { useRouter } from 'next/dist/client/router';
 
 export const B4HHeader: React.FC = memo(() => {
   const { systemTheme, theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState<boolean>(false);
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
+  const { t } = useTranslation('common');
+  const router = useRouter();
+  const { locale } = router;
 
   useEffect(() => {
     setMounted(true);
@@ -26,6 +31,11 @@ export const B4HHeader: React.FC = memo(() => {
     }
   }
 
+  const changeLanguage = (e: any) => {
+    const locale = e.target.value;
+    router.push("/", "/", {locale});
+  }
+
   if (!mounted) return null;
   
   return(
@@ -35,18 +45,18 @@ export const B4HHeader: React.FC = memo(() => {
           
           <div className="flex flex-col max-w-screen-xl px-4 mx-auto md:items-center md:justify-end md:flex-row md:px-6 lg:px-8">
             <div className="flex justify-between items-center">
-              <div className="flex flex-row items-center justify-between p-2">
-                <div className="inline-flex shadow-sm rounded-md" role="group">
-                  <button type="button" className="rounded-l-lg border border-gray-200 bg-white dark:bg-gray-800 text-xs font-medium px-2 py-1 text-gray-900 dark:text-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700">
+              <div className="flex flex-row items-center justify-between p-2 pr-8">
+                <select defaultValue={locale} onChange={changeLanguage} className="inline-flex shadow-sm rounded-md">
+                  <option value="en" className="bg-white dark:bg-gray-800 text-xs font-medium px-2 py-1 text-gray-900 dark:text-gray-200">
                       EN
-                  </button>
-                  <button type="button" className="border-t border-b border-gray-200 bg-white dark:bg-gray-800 text-xs font-medium px-2 py-1 text-gray-900 dark:text-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700">
+                  </option>
+                  <option value="es" className="bg-white dark:bg-gray-800 text-xs font-medium px-2 py-1 text-gray-900 dark:text-gray-200">
                       ES
-                  </button>
-                  <button type="button" className="rounded-r-md border border-gray-200 bg-white dark:bg-gray-800 text-xs font-medium px-2 py-1 text-gray-900 dark:text-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700">
+                  </option>
+                  <option value="pt" className="bg-white dark:bg-gray-800 text-xs font-medium px-2 py-1 text-gray-900 dark:text-gray-200">
                       PT
-                  </button>
-                </div>
+                  </option>
+                </select> 
               </div>
               <div className="flex">
                 <div onClick={() => handleTheme()} className="relative inline-block w-10 mr-2 align-middle select-none transition duration-200">
@@ -83,8 +93,8 @@ export const B4HHeader: React.FC = memo(() => {
               </button>
             </div>
             <nav className={`flex-col flex-grow ${menuOpen ? "flex" : "hidden"} pb-4 md:pb-0 md:flex md:justify-start md:flex-row`}>
-              <a className="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Classes</a>
-              <a className="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Profile</a> 
+              <a className="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">{t`classes`}</a>
+              <a className="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">{t`profile`}</a> 
             </nav>
             <nav className={`flex-col flex-grow ${menuOpen ? "flex" : "hidden"} pb-4 md:pb-0 md:flex md:justify-end md:flex-row`}>
               <a className="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Login</a>

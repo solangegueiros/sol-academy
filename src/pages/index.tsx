@@ -1,6 +1,6 @@
-import type { NextPage } from 'next'
+import type { NextPage, GetStaticProps } from 'next'
 import Head from 'next/head'
-
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import {
   B4HHeader
 } from '@/components'
@@ -21,5 +21,11 @@ const Home: NextPage = () => {
     </div>
   )
 }
+
+export const getStaticProps: GetStaticProps = async ({ locale }: any) => ({
+  props: {
+    ...(await serverSideTranslations(locale, ['common'])),
+  },
+})
 
 export default Home
