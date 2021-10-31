@@ -1,24 +1,37 @@
-import { memo, useState } from 'react'
+import { memo, useEffect, useState } from 'react';
 import Image from 'next/image';
 import b4hvector from '@/../public/images/b4h_vector.svg';
+import { useTheme } from 'next-themes';
 
 export const B4HHeader: React.FC = memo(() => {
+  const { systemTheme, theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState<boolean>(false);
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
-  const [darkTheme, setDarkTheme] = useState<boolean>(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, [])
 
   function handleMenu() {
     setMenuOpen(!menuOpen);
   }
 
   function handleTheme() {
-    setDarkTheme(!darkTheme);
-    console.log(darkTheme);
+    const currentTheme = theme === 'system' ? systemTheme : theme;
+
+    if (currentTheme === 'dark'){
+      setTheme('light')
+    }else{
+      setTheme('dark')
+    }
   }
 
+  if (!mounted) return null;
+  
   return(
-    <header className={`${darkTheme && "dark"} min-h-screen`}>
-      <nav className="antialiased bg-gray-100 dark:bg-gray-900">
-        <div className="w-full text-gray-700 bg-white dark:text-gray-200 dark:bg-gray-800">
+    <header className={`min-h-screen`}>
+      <nav className="antialiased">
+        <div className="w-full">
           
           <div className="flex flex-col max-w-screen-xl px-4 mx-auto md:items-center md:justify-end md:flex-row md:px-6 lg:px-8">
             <div className="flex justify-between items-center">
@@ -37,8 +50,8 @@ export const B4HHeader: React.FC = memo(() => {
               </div>
               <div className="flex">
                 <div onClick={() => handleTheme()} className="relative inline-block w-10 mr-2 align-middle select-none transition duration-200">
-                  <input type="checkbox" className={`toggle-checkbox absolute block w-6 h-6 rounded-full ${darkTheme && "right-0 border-green-400"} bg-white border-4 appearance-none cursor-pointer`} />
-                  <label className={`toggle-label block ${darkTheme && "bg-green-400"} overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer`}></label>
+                  <input type="checkbox" className={`toggle-checkbox absolute block w-6 h-6 rounded-full ${theme === 'dark' && "right-0 border-green-400"} bg-white border-4 appearance-none cursor-pointer`} />
+                  <label className={`toggle-label block ${theme === 'dark' && "bg-green-400"} overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer`}></label>
                 </div>
                 <span className="">
                   <svg className="h-5 w-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
