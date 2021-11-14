@@ -48,14 +48,15 @@ export const B4HHeader: React.FC = memo(() => {
   const provider = typeof window !== "undefined" && window.web3.currentProvider;
 
   async function signIn() {
-    await web3Modal
-      .connect()
-      .then(res => {
+    //@ts-ignore
+    await web3Modal.connect()
+      .then((res: any) => {
         if (res?.accounts?.length > 0) {
           setAccount(res.accounts[0]);
         } else {
           web3.eth.getAccounts().then(res => {
             if (res?.length > 0) {
+              //@ts-ignore
               setAccount(res[0]);
             }
           });
@@ -77,6 +78,7 @@ export const B4HHeader: React.FC = memo(() => {
         console.log(err);
       }
       if (accounts?.length > 0) {
+        //@ts-ignore
         await setAccount(accounts[0]);
       }
     });
