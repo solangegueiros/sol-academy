@@ -3,7 +3,7 @@ import Head from 'next/head'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import {
   B4HHeader
-} from '@/components'
+} from '@/components/molecules'
 
 const Home: NextPage = () => {
   return (
