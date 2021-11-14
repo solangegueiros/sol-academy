@@ -10,7 +10,7 @@ const Home: NextPage = () => {
     <div>
       <Head>
         <title>b4H Academy</title>
-        <link rel="icon" href="/images/favicon.png" />
+        <link rel="icon" type="image/png" href="/images/favicon.png" />
       </Head>
       <B4HHeader />
       <main>

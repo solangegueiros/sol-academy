@@ -90,14 +90,12 @@ export const B4HHeader: React.FC = memo(() => {
     <header className={`min-h-screen`}>
       <nav className="antialiased">
         <div className="w-full">
-          
           <div className="flex flex-col max-w-screen-xl px-4 mx-auto md:items-center md:justify-end md:flex-row md:px-6 lg:px-8">
             <div className="flex justify-between items-center">
               <B4HButtonLanguage />
               <B4HButtonTheme />
             </div>
           </div>
-
           <div className="flex flex-col max-w-screen-xl px-4 mx-auto md:items-center md:justify-between md:flex-row md:px-6 lg:px-8">
             <div className="flex flex-row items-center justify-between p-4">
               <a href="/" className="text-lg font-semibold tracking-widest text-gray-900 uppercase rounded-lg dark:text-white focus:outline-none focus:shadow-outline">
@@ -128,11 +126,9 @@ export const B4HHeader: React.FC = memo(() => {
               : 
               <a className="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
               onClick={() => {}}>Logado</a>
-              
               }
             </nav>
           </div>
-
         </div>
       </nav>
     </header>
