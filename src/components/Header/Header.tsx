@@ -4,6 +4,11 @@ import b4hvector from '@/../public/images/b4h_vector.svg';
 import { useTheme } from 'next-themes';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/dist/client/router';
+/* import { useAuth } from '@/hooks/useAuth'; */
+
+import WalletConnectProvider from '@walletconnect/web3-provider';
+import Web3 from 'web3';
+import Web3Modal from 'web3modal';
 
 export const B4HHeader: React.FC = memo(() => {
   const { systemTheme, theme, setTheme } = useTheme();
@@ -12,6 +17,8 @@ export const B4HHeader: React.FC = memo(() => {
   const { t } = useTranslation('common');
   const router = useRouter();
   const { locale } = router;
+/*   const { signIn } = useAuth(); */
+  const [account, setAccount] = useState();
 
   useEffect(() => {
     setMounted(true);
@@ -36,8 +43,64 @@ export const B4HHeader: React.FC = memo(() => {
     router.push("/", "/", {locale});
   }
 
-  if (!mounted) return null;
+  const providerOptions = {
+    walletconnect: {
+      package: WalletConnectProvider,
+      options: {
+        infuraId: '27e484dcd9e3efcfd25a83a78777cdf1',
+        chainId: 31,
+        rpc: {
+          31: 'https://public-node.testnet.rsk.co',
+        },
+      },
+    },
+  };
+
+  const web3Modal = typeof window !== "undefined" && new Web3Modal({
+    cacheProvider: false,
+    providerOptions,
+    theme: `${theme}`,
+  });
+
+  const provider = typeof window !== "undefined" && window.web3.currentProvider;
+
+  async function signIn() {
+    await web3Modal
+      .connect()
+      .then(res => {
+        if (res?.accounts?.length > 0) {
+          setAccount(res.accounts[0]);
+        } else {
+          web3.eth.getAccounts().then(res => {
+            if (res?.length > 0) {
+              setAccount(res[0]);
+            }
+          });
+        }
+        return true;
+      })
+      .catch(() => {
+        console.log('erro');
+        return false;
+      });
+    return true;
+  };
+
+  const web3 = new Web3(provider);
+
+  useEffect(() => {
+    web3.eth.getAccounts(async function (err, accounts) {
+       if (err != null) {
+        console.log(err);
+      }
+      if (accounts?.length > 0) {
+        await setAccount(accounts[0]);
+      }
+    });
+  }, [account, web3]);
   
+  if (!mounted) return null;
+
   return(
     <header className={`min-h-screen`}>
       <nav className="antialiased">
@@ -96,8 +159,14 @@ export const B4HHeader: React.FC = memo(() => {
               <a className="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">{t`classes`}</a>
               <a className="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">{t`profile`}</a> 
             </nav>
-            <nav className={`flex-col flex-grow ${menuOpen ? "flex" : "hidden"} pb-4 md:pb-0 md:flex md:justify-end md:flex-row`}>
-              <a className="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Login</a>
+            <nav className={`flex-col flex-grow ${menuOpen ? "flex" : "hidden"} pb-4 md:pb-0 md:flex md:justify-end md:flex-row cursor-pointer`}>
+              {account === undefined ? <a className="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+              onClick={() => signIn()}>Login</a>
+              : 
+              <a className="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+              onClick={() => {}}>Logado</a>
+              
+              }
             </nav>
           </div>
 
