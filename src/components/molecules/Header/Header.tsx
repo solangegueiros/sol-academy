@@ -2,8 +2,7 @@ import { memo, useEffect, useState } from 'react';
 import Image from 'next/image';
 import b4hvector from '@/../public/images/b4h_vector.svg';
 import { useTranslation } from 'next-i18next';
-import { useRouter } from 'next/dist/client/router';
-import { B4HButtonTheme } from '@/components/atoms'
+import { B4HButtonLanguage, B4HButtonTheme } from '@/components/atoms'
 import { useTheme } from 'next-themes';
 /* import { useAuth } from '@/hooks/useAuth'; */
 
@@ -15,8 +14,6 @@ export const B4HHeader: React.FC = memo(() => {
   const [mounted, setMounted] = useState<boolean>(false);
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const { t } = useTranslation('common');
-  const router = useRouter();
-  const { locale } = router;
   const { theme } = useTheme();
 /*   const { signIn } = useAuth(); */
   const [account, setAccount] = useState();
@@ -27,11 +24,6 @@ export const B4HHeader: React.FC = memo(() => {
 
   function handleMenu() {
     setMenuOpen(!menuOpen);
-  }
-
-  const changeLanguage = (e: any) => {
-    const locale = e.target.value;
-    router.push("/", "/", {locale});
   }
 
   const providerOptions = {
@@ -99,19 +91,7 @@ export const B4HHeader: React.FC = memo(() => {
           
           <div className="flex flex-col max-w-screen-xl px-4 mx-auto md:items-center md:justify-end md:flex-row md:px-6 lg:px-8">
             <div className="flex justify-between items-center">
-              <div className="flex flex-row items-center justify-between p-2 pr-8">
-                <select defaultValue={locale} onChange={changeLanguage} className="inline-flex shadow-sm rounded-md">
-                  <option value="en" className="bg-white dark:bg-gray-800 text-xs font-medium px-2 py-1 text-gray-900 dark:text-gray-200">
-                      EN
-                  </option>
-                  <option value="es" className="bg-white dark:bg-gray-800 text-xs font-medium px-2 py-1 text-gray-900 dark:text-gray-200">
-                      ES
-                  </option>
-                  <option value="pt" className="bg-white dark:bg-gray-800 text-xs font-medium px-2 py-1 text-gray-900 dark:text-gray-200">
-                      PT
-                  </option>
-                </select> 
-              </div>
+              <B4HButtonLanguage />
               <B4HButtonTheme />
             </div>
           </div>
