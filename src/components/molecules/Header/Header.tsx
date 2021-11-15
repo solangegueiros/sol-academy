@@ -2,7 +2,7 @@ import { memo, useEffect, useState } from 'react';
 import Image from 'next/image';
 import b4hvector from '@/../public/images/b4h_vector.svg';
 import { useTranslation } from 'next-i18next';
-import { B4HButtonLanguage, B4HButtonTheme } from '@/components/atoms'
+import { B4HButtonLanguage, B4HSwitchTheme } from '@/components/atoms'
 import { useTheme } from 'next-themes';
 /* import { useAuth } from '@/hooks/useAuth'; */
 
@@ -16,7 +16,7 @@ export const B4HHeader: React.FC = memo(() => {
   const { t } = useTranslation('common');
   const { theme } = useTheme();
 /*   const { signIn } = useAuth(); */
-  const [account, setAccount] = useState();
+  const [account, setAccount] = useState<string>();
 
   useEffect(() => {
     setMounted(true);
@@ -73,16 +73,25 @@ export const B4HHeader: React.FC = memo(() => {
   const web3 = new Web3(provider);
 
   useEffect(() => {
-    web3.eth.getAccounts(async function (err, accounts) {
-       if (err != null) {
-        console.log(err);
-      }
-      if (accounts?.length > 0) {
-        //@ts-ignore
-        await setAccount(accounts[0]);
-      }
-    });
+    //@ts-ignore
+    if (web3Modal.cachedProvider) {
+      web3.eth.getAccounts(async function (err, accounts) {
+        if (err != null) {
+         console.log(err);
+       }
+       if (accounts?.length > 0) {
+         //@ts-ignore
+         await setAccount(accounts[0]);
+       }
+     });
+    }
   }, [account, web3]);
+
+  async function signOut() {
+    //@ts-ignore
+    await web3Modal.clearCachedProvider();
+    setAccount(undefined);
+  }
   
   if (!mounted) return null;
 
@@ -93,7 +102,7 @@ export const B4HHeader: React.FC = memo(() => {
           <div className="flex flex-col max-w-screen-xl px-4 mx-auto md:items-center md:justify-end md:flex-row md:px-6 lg:px-8">
             <div className="flex justify-between items-center">
               <B4HButtonLanguage />
-              <B4HButtonTheme />
+              <B4HSwitchTheme />
             </div>
           </div>
           <div className="flex flex-col max-w-screen-xl px-4 mx-auto md:items-center md:justify-between md:flex-row md:px-6 lg:px-8">
@@ -123,9 +132,15 @@ export const B4HHeader: React.FC = memo(() => {
             <nav className={`flex-col flex-grow ${menuOpen ? "flex" : "hidden"} pb-4 md:pb-0 md:flex md:justify-end md:flex-row cursor-pointer`}>
               {account === undefined ? <a className="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
               onClick={() => signIn()}>Login</a>
-              : 
-              <a className="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
-              onClick={() => {}}>Logado</a>
+              :
+              <>
+                <a className="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                onClick={() => {navigator.clipboard.writeText(account)}}>{account}</a>
+                <a className="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                onClick={() => signOut()}>
+                  <i className="far fa-sign-out text-lg"></i>
+                </a>
+              </>
               }
             </nav>
           </div>

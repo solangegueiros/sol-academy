@@ -1,2 +1,2 @@
 export * from './ButtonLanguage';
-export * from './ButtonTheme';
+export * from './SwitchTheme';

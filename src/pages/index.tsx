@@ -11,6 +11,7 @@ const Home: NextPage = () => {
       <Head>
         <title>b4H Academy</title>
         <link rel="icon" type="image/png" href="/images/favicon.png" />
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
       </Head>
       <B4HHeader />
       <main>

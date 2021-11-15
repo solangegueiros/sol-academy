@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import { useTheme } from 'next-themes';
 
-export const B4HButtonTheme: React.FC = memo(() => {
+export const B4HSwitchTheme: React.FC = memo(() => {
   const { systemTheme, theme, setTheme } = useTheme();
 
   function handleTheme() {
