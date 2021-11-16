@@ -4,7 +4,7 @@ import Head from 'next/head';
 
 import { B4HHeader } from '@/components/molecules';
 
-const Home: NextPage = () => {
+const Profile: NextPage = () => {
   return (
     <div>
       <Head>
@@ -28,4 +28,4 @@ export const getStaticProps: GetStaticProps = async ({ locale }: any) => ({
   },
 });
 
-export default Home;
+export default Profile;
