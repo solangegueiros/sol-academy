@@ -30,7 +30,9 @@ export const B4HSwitchTheme: React.FC = memo(() => {
         <label
           className={`toggle-label block ${
             theme === 'dark' && 'bg-green-400'
-          } overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer`}
+          } overflow-hidden h-6 rounded-full ${
+            theme === 'dark' ? 'bg-green-400' : 'bg-gray-300'
+          } cursor-pointer`}
         ></label>
       </div>
       <span className="">

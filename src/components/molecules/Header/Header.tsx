@@ -20,6 +20,7 @@ export const B4HHeader: React.FC = memo(() => {
   const { theme } = useTheme();
   /*   const { signIn } = useAuth(); */
   const [account, setAccount] = useState<string>();
+  /* const currentTheme = theme === 'system' ? systemTheme : theme; */
 
   useEffect(() => {
     setMounted(true);
