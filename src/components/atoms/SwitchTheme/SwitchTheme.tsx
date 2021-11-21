@@ -4,9 +4,9 @@ import { useTheme } from 'next-themes';
 
 export const B4HSwitchTheme: React.FC = memo(() => {
   const { systemTheme, theme, setTheme } = useTheme();
-  const currentTheme = theme === 'system' ? systemTheme : theme;
 
   function handleTheme() {
+    const currentTheme = theme === 'system' ? systemTheme : theme;
     if (currentTheme === 'dark') {
       setTheme('light');
     } else {
@@ -23,15 +23,15 @@ export const B4HSwitchTheme: React.FC = memo(() => {
         <input
           type="checkbox"
           className={`toggle-checkbox absolute block w-6 h-6 rounded-full ${
-            currentTheme === 'dark' && 'right-0 border-green-400'
+            theme === 'dark' && 'right-0 border-green-400'
           }
             bg-white border-4 appearance-none cursor-pointer`}
         />
         <label
           className={`toggle-label block ${
-            currentTheme === 'dark' && 'bg-green-400'
+            theme === 'dark' && 'bg-green-400'
           } overflow-hidden h-6 rounded-full ${
-            currentTheme === 'dark' ? 'bg-green-400' : 'bg-gray-300'
+            theme === 'dark' ? 'bg-green-400' : 'bg-gray-300'
           } cursor-pointer`}
         ></label>
       </div>
