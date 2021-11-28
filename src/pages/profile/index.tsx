@@ -2,7 +2,7 @@ import type { NextPage, GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Head from 'next/head';
 
-import { B4HHeader } from '@/components/molecules';
+import { B4HHeader, B4HMasterName } from '@/components/molecules';
 
 const Profile: NextPage = () => {
   return (
@@ -16,7 +16,9 @@ const Profile: NextPage = () => {
         />
       </Head>
       <B4HHeader />
-      <main></main>
+      <main className="pt-8">
+        <B4HMasterName />
+      </main>
       <footer></footer>
     </div>
   );

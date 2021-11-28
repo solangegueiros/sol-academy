@@ -6,7 +6,6 @@ import Image from 'next/image';
 import NextLink from 'next/link';
 
 import b4hvector from '@/../public/images/b4h_vector.svg';
-/* import { useAuth } from '@/hooks/useAuth'; */
 import WalletConnectProvider from '@walletconnect/web3-provider';
 import Web3 from 'web3';
 import Web3Modal from 'web3modal';
@@ -20,9 +19,7 @@ export const B4HHeader: React.FC = memo(() => {
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const { t } = useTranslation('common');
   const { theme } = useTheme();
-  /*   const { signIn } = useAuth(); */
   const [account, setAccount] = useState<string>();
-  /* const currentTheme = theme === 'system' ? systemTheme : theme; */
 
   useEffect(() => {
     setMounted(true);
@@ -105,13 +102,15 @@ export const B4HHeader: React.FC = memo(() => {
   if (!mounted) return null;
 
   return (
-    <header className={`min-h-screen`}>
+    <header className="bg-gray-200 dark:bg-gray-800">
       <nav className="antialiased">
         <div className="w-full">
-          <div className="flex flex-col max-w-screen-xl px-4 mx-auto md:items-center md:justify-end md:flex-row md:px-6 lg:px-8">
-            <div className="flex justify-between items-center">
-              <B4HButtonLanguage />
-              <B4HSwitchTheme />
+          <div className="bg-gray-100 dark:bg-gray-700">
+            <div className="flex flex-col max-w-screen-xl px-4 mx-auto md:items-center md:justify-end md:flex-row md:px-6 lg:px-8">
+              <div className="flex justify-between items-center">
+                <B4HButtonLanguage />
+                <B4HSwitchTheme />
+              </div>
             </div>
           </div>
           <div className="flex flex-col max-w-screen-xl px-4 mx-auto md:items-center md:justify-between md:flex-row md:px-6 lg:px-8">
