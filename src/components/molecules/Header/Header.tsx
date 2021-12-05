@@ -47,10 +47,11 @@ export const B4HHeader: React.FC = memo(() => {
     new Web3Modal({
       cacheProvider: false,
       providerOptions,
-      theme: `${theme}`,
+      theme: 'dark',
     });
 
-  const provider = typeof window !== 'undefined' && window.web3.currentProvider;
+  const provider =
+    typeof window !== 'undefined' && window?.web3?.currentProvider;
   const web3 = new Web3(provider);
 
   async function signIn() {

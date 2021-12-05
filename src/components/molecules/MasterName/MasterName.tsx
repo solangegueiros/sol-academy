@@ -4,7 +4,7 @@ import { B4HButton, B4HTextField } from '@/components/atoms';
 
 export const B4HMasterName: React.FC = memo(() => {
   const [mounted, setMounted] = useState<boolean>(false);
-  const [name, setName] = useState('asdada');
+  const [name, setName] = useState('');
   const [address, setAddress] = useState('');
 
   useEffect(() => {
