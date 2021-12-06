@@ -8,9 +8,9 @@ export const B4HButton: React.FC<B4HButtonProps> = memo(
       <button
         className={`
           block w-full max-w-xs mx-auto 
-          ${bgColor === 'red' ? 'bg-red-700' : 'bg-blue-700'}
-          ${bgColor === 'red' ? 'hover:bg-red-800' : 'hover:bg-blue-800'}
-          ${bgColor === 'red' ? 'focus:bg-red-800' : 'focus:bg-blue-800'}
+          ${bgColor === 'red' ? 'bg-red-500' : 'bg-indigo-600'}
+          ${bgColor === 'red' ? 'hover:bg-red-600' : 'hover:bg-indigo-700'}
+          ${bgColor === 'red' ? 'focus:bg-red-600' : 'focus:bg-indigo-700'}
           text-white 
           rounded-lg px-3 py-3 font-semibold`}
       >

@@ -11,7 +11,7 @@ export const B4HTextField: React.FC<B4HTextFieldProps> = memo(
         </div>
         <input
           type={type}
-          className="w-full -ml-10 pl-3 pr-3 py-2 rounded-lg border-2 border-gray-500 outline-none focus:border-blue-800"
+          className="w-full -ml-10 pl-3 pr-3 py-2 rounded-lg border-2 border-gray-300 dark:border-gray-600 outline-none focus:border-blue-800"
           placeholder={placeholder}
           value={value}
           onChange={e => onChange(e.target.value)}

@@ -1,7 +1,6 @@
 import React, { memo, useEffect, useState } from 'react';
 
 import { useTranslation } from 'next-i18next';
-import { useTheme } from 'next-themes';
 import Image from 'next/image';
 import NextLink from 'next/link';
 
@@ -18,7 +17,6 @@ export const B4HHeader: React.FC = memo(() => {
   const [mounted, setMounted] = useState<boolean>(false);
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const { t } = useTranslation('common');
-  const { theme } = useTheme();
   const [account, setAccount] = useState<string>();
 
   useEffect(() => {

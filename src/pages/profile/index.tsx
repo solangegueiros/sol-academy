@@ -2,7 +2,11 @@ import type { NextPage, GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Head from 'next/head';
 
-import { B4HHeader, B4HMasterName } from '@/components/molecules';
+import {
+  B4HHeader,
+  B4HMasterName,
+  B4HNameContract,
+} from '@/components/molecules';
 
 const Profile: NextPage = () => {
   return (
@@ -16,7 +20,10 @@ const Profile: NextPage = () => {
         />
       </Head>
       <B4HHeader />
-      <main className="pt-8">
+      <main>
+        <B4HNameContract
+          ownerAddress={'0x6585d1ba166aeBF1e6A88f816e3024BF324D21ad'}
+        />
         <B4HMasterName />
       </main>
       <footer></footer>

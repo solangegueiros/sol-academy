@@ -16,7 +16,7 @@ export const B4HButtonLanguage: React.FC = memo(() => {
       <select
         defaultValue={locale}
         onChange={changeLanguage}
-        className="inline-flex shadow-sm rounded-md"
+        className="inline-flex shadow-sm rounded-md dark:bg-gray-800"
       >
         <option
           value="en"

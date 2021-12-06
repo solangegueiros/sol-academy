@@ -17,8 +17,9 @@ export const B4HMasterName: React.FC = memo(() => {
     <>
       <div
         className={`
-        w-full pt-5 px-4 mx-auto
-        bg-gray-50 dark:bg-gray-600
+        w-full pt-5 px-4 mx-auto mt-8 border-2
+        shadow-lg
+        dark:border-gray-600
         rounded-lg
         md:w-1/2 md:items-center md:justify-between md:px-6 lg:px-8
       `}
