@@ -1,0 +1,78 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true
+  },
+  "extends": [
+    "standard",
+    "plugin:react/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "globals": {
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly"
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 2018,
+    "sourceType": "module"
+  },
+  "plugins": [
+    "react",
+    "@typescript-eslint",
+    "eslint-plugin-import-helpers",
+    "react-hooks"
+  ],
+  "rules": {
+    "handle-callback-err": "off",
+    "no-use-before-define": "off",
+    "@typescript-eslint/no-use-before-define": ["error"],
+    "no-unused-vars": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/prop-types": "off",
+    "react/display-name": "off",
+    "react-hooks/exhaustive-deps": "warn",
+    "prettier.arrowParens": "off",
+    "@typescript-eslint/no-unused-vars": ["warn"],
+    "no-unused-expressions": "off",
+    "@typescript-eslint/no-unused-expressions": ["error"],
+    "import-helpers/order-imports": [
+      "warn",
+      {
+        "newlinesBetween": "always",
+        "groups": [
+          "/react/",
+          "/next/",
+          "module",
+          "/@material-ui/core//",
+          "/@material-ui/icons//",
+          "/@material-ui/lab//",
+          "/@material-ui/",
+          "/utils/",
+          "/constants/",
+          "/assets//",
+          "/theme//",
+          "/configs//",
+          "/providers//",
+          "/requests//",
+          "/hooks//",
+          "/pages//",
+          "/components//",
+          [
+            "parent",
+            "sibling",
+            "index"
+          ]
+        ],
+        "alphabetize": {
+          "order": "asc",
+          "ignoreCase": true
+        }
+      }
+    ]
+  }
+}
