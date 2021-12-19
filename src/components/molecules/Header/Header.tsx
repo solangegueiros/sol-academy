@@ -31,10 +31,10 @@ export const B4HHeader: React.FC = memo(() => {
     walletconnect: {
       package: WalletConnectProvider,
       options: {
-        infuraId: '27e484dcd9e3efcfd25a83a78777cdf1',
-        chainId: 31,
+        infuraId: '9aa3d95b3bc440fa88ea12eaa4456161',
+        chainId: 5,
         rpc: {
-          31: 'https://public-node.testnet.rsk.co',
+          5: 'https://goerli.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161',
         },
       },
     },
