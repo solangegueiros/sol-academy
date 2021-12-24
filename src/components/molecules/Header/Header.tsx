@@ -5,9 +5,10 @@ import Image from 'next/image';
 import NextLink from 'next/link';
 
 import b4hvector from '@/../public/images/b4h_vector.svg';
-import WalletConnectProvider from '@walletconnect/web3-provider';
+/* import WalletConnectProvider from '@walletconnect/web3-provider';
 import Web3 from 'web3';
-import Web3Modal from 'web3modal';
+import Web3Modal from 'web3modal'; */
+import { useAuth } from '@/contexts/AuthContext';
 
 import { ellipseAddress } from '@/utils';
 
@@ -17,7 +18,8 @@ export const B4HHeader: React.FC = memo(() => {
   const [mounted, setMounted] = useState<boolean>(false);
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const { t } = useTranslation('common');
-  const [account, setAccount] = useState<string>();
+  /* const [account, setAccount] = useState<string>(); */
+  const { account, signIn, signOut } = useAuth();
 
   useEffect(() => {
     setMounted(true);
@@ -27,7 +29,7 @@ export const B4HHeader: React.FC = memo(() => {
     setMenuOpen(!menuOpen);
   }
 
-  const providerOptions = {
+  /* const providerOptions = {
     walletconnect: {
       package: WalletConnectProvider,
       options: {
@@ -41,7 +43,7 @@ export const B4HHeader: React.FC = memo(() => {
   };
 
   const web3Modal =
-    typeof window !== 'undefined' &&
+    typeof window !== '''' &&
     new Web3Modal({
       cacheProvider: false,
       providerOptions,
@@ -49,10 +51,10 @@ export const B4HHeader: React.FC = memo(() => {
     });
 
   const provider =
-    typeof window !== 'undefined' && window?.web3?.currentProvider;
-  const web3 = new Web3(provider);
+    typeof window !== '''' && window?.web3?.currentProvider;
+  const web3 = new Web3(provider); */
 
-  async function signIn() {
+  /* async function signIn() {
     // @ts-ignore
     await web3Modal
       // @ts-ignore
@@ -75,9 +77,9 @@ export const B4HHeader: React.FC = memo(() => {
         return false;
       });
     return true;
-  }
+  } */
 
-  useEffect(() => {
+  /* useEffect(() => {
     // @ts-ignore
     if (web3Modal.cachedProvider) {
       web3.eth.getAccounts(async function (err, accounts) {
@@ -90,13 +92,13 @@ export const B4HHeader: React.FC = memo(() => {
         }
       });
     }
-  }, [account, web3]);
+  }, [account, web3]); */
 
-  async function signOut() {
+  /* async function signOut() {
     // @ts-ignore
     await web3Modal.clearCachedProvider();
-    setAccount(undefined);
-  }
+    setAccount('');
+  } */
 
   if (!mounted) return null;
 
@@ -158,7 +160,7 @@ export const B4HHeader: React.FC = memo(() => {
                 menuOpen ? 'flex' : 'hidden'
               } pb-4 md:pb-0 md:flex md:justify-end md:flex-row cursor-pointer`}
             >
-              {account === undefined ? (
+              {account === '' ? (
                 <a
                   className="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
                   onClick={() => signIn()}
