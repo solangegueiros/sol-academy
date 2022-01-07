@@ -34,6 +34,14 @@ export const B4HNameContract: React.FC<any> = memo(({ ownerAddress }) => {
               </tr>
               <tr>
                 <td className="border-t-2 border-gray-200 dark:border-gray-600 px-4 py-3">
+                  NETWORK
+                </td>
+                <td className="border-t-2 border-gray-200 dark:border-gray-600 px-4 py-3">
+                  {'testando' || 'Não logado'}
+                </td>
+              </tr>
+              <tr>
+                <td className="border-t-2 border-gray-200 dark:border-gray-600 px-4 py-3">
                   {/* DESCRICAO */}
                 </td>
                 <td className="border-t-2 border-gray-200 dark:border-gray-600 px-4 py-3"></td>

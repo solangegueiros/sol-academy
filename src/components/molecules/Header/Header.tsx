@@ -149,18 +149,20 @@ export const B4HHeader: React.FC = memo(() => {
                   {t`classes`}
                 </a>
               </NextLink>
-              <NextLink href="/profile" passHref>
-                <a className="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
-                  {t`profile`}
-                </a>
-              </NextLink>
+              {account && (
+                <NextLink href="/profile" passHref>
+                  <a className="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
+                    {t`profile`}
+                  </a>
+                </NextLink>
+              )}
             </nav>
             <nav
               className={`flex-col flex-grow ${
                 menuOpen ? 'flex' : 'hidden'
               } pb-4 md:pb-0 md:flex md:justify-end md:flex-row cursor-pointer`}
             >
-              {account === '' ? (
+              {!account ? (
                 <a
                   className="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
                   onClick={() => signIn()}

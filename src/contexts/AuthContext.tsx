@@ -41,20 +41,19 @@ function AuthProvider({ children }: AuthProviderProps) {
     },
   };
 
-  const web3Modal =
-    typeof window !== 'undefined' &&
-    new Web3Modal({
-      cacheProvider: true,
-      providerOptions,
-      theme: 'dark',
-    });
-
-  const provider =
-    typeof window !== 'undefined' && window?.web3?.currentProvider;
-  const web3 = new Web3(provider);
-
   const signIn = useCallback(async function () {
     setLoading(true);
+    const web3Modal =
+      typeof window !== 'undefined' &&
+      new Web3Modal({
+        cacheProvider: true,
+        providerOptions,
+        theme: 'dark',
+      });
+
+    const provider =
+      typeof window !== 'undefined' && window?.web3?.currentProvider;
+    const web3 = new Web3(provider);
     // @ts-ignore
     await web3Modal
       // @ts-ignore
@@ -82,13 +81,34 @@ function AuthProvider({ children }: AuthProviderProps) {
   }, []);
 
   async function signOut() {
-    setAccount('');
+    const web3Modal =
+      typeof window !== 'undefined' &&
+      new Web3Modal({
+        cacheProvider: true,
+        providerOptions,
+        theme: 'dark',
+      });
+    // @ts-ignore
+    const provider = await web3Modal.connect();
+
     // @ts-ignore
     await web3Modal.clearCachedProvider();
+    await provider.disconnect();
     setAccount('');
   }
 
   async function loadAccount() {
+    const web3Modal =
+      typeof window !== 'undefined' &&
+      new Web3Modal({
+        cacheProvider: true,
+        providerOptions,
+        theme: 'dark',
+      });
+
+    const provider =
+      typeof window !== 'undefined' && window?.web3?.currentProvider;
+    const web3 = new Web3(provider);
     // @ts-ignore
     if (web3Modal.cachedProvider) {
       web3.eth.getAccounts(async function (err, accounts) {
@@ -105,7 +125,7 @@ function AuthProvider({ children }: AuthProviderProps) {
 
   useEffect(() => {
     loadAccount();
-  }, [account, web3]);
+  }, [account]);
 
   return (
     <AuthContext.Provider
