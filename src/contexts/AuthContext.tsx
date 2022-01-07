@@ -93,7 +93,9 @@ function AuthProvider({ children }: AuthProviderProps) {
 
     // @ts-ignore
     await web3Modal.clearCachedProvider();
-    await provider.disconnect();
+    if (provider?.accounts?.length) {
+      await provider.disconnect();
+    }
     setAccount('');
   }
 
