@@ -11,7 +11,7 @@ import {
 } from '@/components/molecules';
 
 const Profile: NextPage = () => {
-  const { account } = useAuth();
+  const { account, chainId } = useAuth();
 
   return (
     <div>
@@ -25,7 +25,7 @@ const Profile: NextPage = () => {
       </Head>
       <B4HHeader />
       <main>
-        <B4HNameContract ownerAddress={account} />
+        <B4HNameContract ownerAddress={account} chainId={chainId} />
         <B4HMasterName />
       </main>
       <footer></footer>
