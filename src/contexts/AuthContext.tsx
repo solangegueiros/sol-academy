@@ -14,6 +14,7 @@ import Web3Modal from 'web3modal';
 type AuthContextData = {
   account: string;
   chainId: number;
+  providerContext: any;
   loading: boolean;
   signIn: () => Promise<void>;
   signOut: () => Promise<void>;
@@ -28,6 +29,7 @@ export const AuthContext = createContext({} as AuthContextData);
 function AuthProvider({ children }: AuthProviderProps) {
   const [account, setAccount] = useState<string>('');
   const [chainId, setChainId] = useState<number>(0);
+  const [providerContext, setProviderContext] = useState<any>();
   const [loading, setLoading] = useState(false);
 
   const providerOptions = {
@@ -52,13 +54,15 @@ function AuthProvider({ children }: AuthProviderProps) {
         providerOptions,
         theme: 'dark',
       });
-
+    // @ts-ignore
+    await web3Modal.clearCachedProvider();
     // @ts-ignore
     const provider = await web3Modal.connect();
     // walletconect
     if (provider?.accounts?.length) {
       await setAccount(provider?.accounts[0]);
       await setChainId(provider?.chainId);
+      await setProviderContext(provider);
     }
     // metamask
     else {
@@ -66,6 +70,7 @@ function AuthProvider({ children }: AuthProviderProps) {
       const signer = web3Provider.getSigner();
       setAccount(await signer.getAddress());
       setChainId(await (await web3Provider.getNetwork()).chainId);
+      await setProviderContext(web3Provider);
     }
   }, []);
 
@@ -87,6 +92,7 @@ function AuthProvider({ children }: AuthProviderProps) {
     }
     setAccount('');
     setChainId(0);
+    setProviderContext('');
   }
 
   async function loadAccount() {
@@ -106,11 +112,13 @@ function AuthProvider({ children }: AuthProviderProps) {
       if (provider?.accounts?.length) {
         await setAccount(provider?.accounts[0]);
         await setChainId(provider?.chainId);
+        await setProviderContext(provider);
       } else {
         const web3Provider = new providers.Web3Provider(provider);
         const signer = web3Provider.getSigner();
         setAccount(await signer.getAddress());
         setChainId(await (await web3Provider.getNetwork()).chainId);
+        await setProviderContext(web3Provider);
       }
     }
   }
@@ -124,6 +132,7 @@ function AuthProvider({ children }: AuthProviderProps) {
       value={{
         account,
         chainId,
+        providerContext,
         loading,
         signIn,
         signOut,

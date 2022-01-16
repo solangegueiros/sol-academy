@@ -1,7 +1,11 @@
 import React, { memo } from 'react';
 
-export const B4HAlert: React.FC = memo(() => {
-  return (
+export const B4HShowName: React.FC<any> = memo(({ name }) => {
+  return name ? (
+    <div className="flex items-center space-x-4 mt-10 mb-8 p-1">
+      <span className="text-xl">{name}</span>
+    </div>
+  ) : (
     <div className="flex items-center space-x-4 rounded-sm bg-yellow-200 text-gray-700 mt-10 mb-8 p-1">
       <div className="flex items-center self-stretch justify-center">
         <svg

@@ -1,14 +1,45 @@
-import React, { memo, useEffect, useState } from 'react';
+import React, { memo, useCallback, useEffect, useState } from 'react';
 
-import { B4HAlert } from '@/components/atoms';
+import { useAuth } from '@/contexts/AuthContext';
+import { MasterNameAbi, MasterNameAddress } from '@/contracts/MasterName';
+import Web3 from 'web3';
+
+import { B4HShowName } from '@/components/atoms';
 
 export const B4HNameContract: React.FC<any> = memo(
   ({ ownerAddress, chainId }) => {
     const [mounted, setMounted] = useState<boolean>(false);
+    const [name, setName] = useState('');
+    const { account } = useAuth();
+
+    const provider =
+      typeof window !== 'undefined' && window.web3.currentProvider;
+    const web3 = new Web3(provider);
+    // @ts-ignore
+    const contract = new web3.eth.Contract(MasterNameAbi, MasterNameAddress);
+
+    const VerifyMasterName = useCallback(async () => {
+      await console.log(
+        contract.methods
+          .getNameByOwner(account)
+          .call()
+          .then((result: any) => {
+            if (result) {
+              setName(result);
+            }
+          })
+          .catch(() => {
+            setName('');
+          })
+      );
+    }, [contract.methods, account]);
 
     useEffect(() => {
       setMounted(true);
-    }, []);
+      if (account) {
+        VerifyMasterName();
+      }
+    }, [account]);
 
     if (!mounted) return null;
 
@@ -23,7 +54,7 @@ export const B4HNameContract: React.FC<any> = memo(
         md:w-1/2 md:items-center md:justify-between md:px-6 lg:px-8
       `}
         >
-          <B4HAlert />
+          <B4HShowName name={name} />
           <div className="w-full mx-auto overflow-auto mb-8">
             <table className="table-auto w-full text-left whitespace-no-wrap">
               <tbody>

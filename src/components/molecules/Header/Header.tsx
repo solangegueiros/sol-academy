@@ -5,9 +5,6 @@ import Image from 'next/image';
 import NextLink from 'next/link';
 
 import b4hvector from '@/../public/images/b4h_vector.svg';
-/* import WalletConnectProvider from '@walletconnect/web3-provider';
-import Web3 from 'web3';
-import Web3Modal from 'web3modal'; */
 import { useAuth } from '@/contexts/AuthContext';
 
 import { ellipseAddress } from '@/utils';
@@ -18,7 +15,6 @@ export const B4HHeader: React.FC = memo(() => {
   const [mounted, setMounted] = useState<boolean>(false);
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const { t } = useTranslation('common');
-  /* const [account, setAccount] = useState<string>(); */
   const { account, signIn, signOut } = useAuth();
 
   useEffect(() => {
@@ -28,77 +24,6 @@ export const B4HHeader: React.FC = memo(() => {
   function handleMenu() {
     setMenuOpen(!menuOpen);
   }
-
-  /* const providerOptions = {
-    walletconnect: {
-      package: WalletConnectProvider,
-      options: {
-        infuraId: '9aa3d95b3bc440fa88ea12eaa4456161',
-        chainId: 5,
-        rpc: {
-          5: 'https://goerli.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161',
-        },
-      },
-    },
-  };
-
-  const web3Modal =
-    typeof window !== '''' &&
-    new Web3Modal({
-      cacheProvider: false,
-      providerOptions,
-      theme: 'dark',
-    });
-
-  const provider =
-    typeof window !== '''' && window?.web3?.currentProvider;
-  const web3 = new Web3(provider); */
-
-  /* async function signIn() {
-    // @ts-ignore
-    await web3Modal
-      // @ts-ignore
-      .connect()
-      .then((res: any) => {
-        if (res?.accounts?.length > 0) {
-          setAccount(res.accounts[0]);
-        } else {
-          web3.eth.getAccounts().then(res => {
-            if (res?.length > 0) {
-              // @ts-ignore
-              setAccount(res[0]);
-            }
-          });
-        }
-        return true;
-      })
-      .catch(() => {
-        console.log('erro');
-        return false;
-      });
-    return true;
-  } */
-
-  /* useEffect(() => {
-    // @ts-ignore
-    if (web3Modal.cachedProvider) {
-      web3.eth.getAccounts(async function (err, accounts) {
-        if (err != null) {
-          console.log(err);
-        }
-        if (accounts?.length > 0) {
-          // @ts-ignore
-          await setAccount(accounts[0]);
-        }
-      });
-    }
-  }, [account, web3]); */
-
-  /* async function signOut() {
-    // @ts-ignore
-    await web3Modal.clearCachedProvider();
-    setAccount('');
-  } */
 
   if (!mounted) return null;
 
