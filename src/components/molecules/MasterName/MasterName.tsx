@@ -1,58 +1,22 @@
-import React, { memo, useCallback, useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 
-import { useAuth } from '@/contexts/AuthContext';
-import { MasterNameAbi, MasterNameAddress } from '@/contracts/MasterName';
-import Web3 from 'web3';
+import { useMasterName } from '@/contexts';
 
 import { B4HButton, B4HTextField } from '@/components/atoms';
 
 export const B4HMasterName: React.FC = memo(() => {
   const [mounted, setMounted] = useState<boolean>(false);
-  const [name, setName] = useState('');
-  const [address, setAddress] = useState('');
-  const { account, providerContext } = useAuth();
-  const [haveMasterName, setHaveMasterName] = useState<boolean>(false);
-
-  const provider = typeof window !== 'undefined' && window.web3.currentProvider;
-  const web3 = new Web3(provider);
-  // @ts-ignore
-  const contract = new web3.eth.Contract(MasterNameAbi, MasterNameAddress);
-
-  const RegisterMasterName = useCallback(() => {
-    if (address && name && !haveMasterName) {
-      contract.methods.addName(address, name).send({ from: account });
-    }
-  }, [contract.methods, name, address, account, haveMasterName]);
-
-  const DeleteMasterName = useCallback(async () => {
-    if (haveMasterName) {
-      await contract.methods.deleteName().send({ from: account });
-    }
-  }, [contract.methods, account, haveMasterName]);
-
-  const VerifyMasterName = useCallback(async () => {
-    await console.log(
-      contract.methods
-        .getNameByOwner(account)
-        .call()
-        .then((result: any) => {
-          if (result) {
-            setHaveMasterName(true);
-            setName(result);
-          }
-        })
-        .catch(() => {
-          setHaveMasterName(false);
-        })
-    );
-  }, [contract.methods, account]);
+  const [newName, setNewName] = useState('');
+  const [newAddress, setNewAddress] = useState('');
+  const { name, haveMasterName, RegisterMasterName, DeleteMasterName } =
+    useMasterName();
 
   useEffect(() => {
     setMounted(true);
-    if (account) {
-      VerifyMasterName();
+    if (haveMasterName) {
+      setNewName(name);
     }
-  }, [account]);
+  }, [haveMasterName, name]);
 
   if (!mounted) return null;
 
@@ -75,8 +39,8 @@ export const B4HMasterName: React.FC = memo(() => {
             <B4HTextField
               placeholder="Name"
               type="text"
-              value={name}
-              onChange={setName}
+              value={newName}
+              onChange={setNewName}
             />
           </div>
         </div>
@@ -85,14 +49,17 @@ export const B4HMasterName: React.FC = memo(() => {
             <B4HTextField
               placeholder="Address"
               type="text"
-              value={address}
-              onChange={setAddress}
+              value={newAddress}
+              onChange={setNewAddress}
             />
           </div>
         </div>
         <div className="flex -mx-3">
           <div className="w-1/2 px-3 mb-5">
-            <B4HButton title="Set Name" onClick={RegisterMasterName} />
+            <B4HButton
+              title="Set Name"
+              onClick={() => RegisterMasterName(newAddress, newName)}
+            />
           </div>
           <div className="w-1/2 px-3 mb-5">
             <B4HButton

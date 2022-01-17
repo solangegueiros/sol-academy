@@ -1,45 +1,17 @@
-import React, { memo, useCallback, useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 
-import { useAuth } from '@/contexts/AuthContext';
-import { MasterNameAbi, MasterNameAddress } from '@/contracts/MasterName';
-import Web3 from 'web3';
+import { useMasterName } from '@/contexts';
 
 import { B4HShowName } from '@/components/atoms';
 
 export const B4HNameContract: React.FC<any> = memo(
   ({ ownerAddress, chainId }) => {
     const [mounted, setMounted] = useState<boolean>(false);
-    const [name, setName] = useState('');
-    const { account } = useAuth();
-
-    const provider =
-      typeof window !== 'undefined' && window.web3.currentProvider;
-    const web3 = new Web3(provider);
-    // @ts-ignore
-    const contract = new web3.eth.Contract(MasterNameAbi, MasterNameAddress);
-
-    const VerifyMasterName = useCallback(async () => {
-      await console.log(
-        contract.methods
-          .getNameByOwner(account)
-          .call()
-          .then((result: any) => {
-            if (result) {
-              setName(result);
-            }
-          })
-          .catch(() => {
-            setName('');
-          })
-      );
-    }, [contract.methods, account]);
+    const { name } = useMasterName();
 
     useEffect(() => {
       setMounted(true);
-      if (account) {
-        VerifyMasterName();
-      }
-    }, [account]);
+    }, []);
 
     if (!mounted) return null;
 

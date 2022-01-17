@@ -14,7 +14,7 @@ import Web3Modal from 'web3modal';
 type AuthContextData = {
   account: string;
   chainId: number;
-  providerContext: any;
+  provider: any;
   loading: boolean;
   signIn: () => Promise<void>;
   signOut: () => Promise<void>;
@@ -29,7 +29,7 @@ export const AuthContext = createContext({} as AuthContextData);
 function AuthProvider({ children }: AuthProviderProps) {
   const [account, setAccount] = useState<string>('');
   const [chainId, setChainId] = useState<number>(0);
-  const [providerContext, setProviderContext] = useState<any>();
+  const [provider, setProvider] = useState<any>();
   const [loading, setLoading] = useState(false);
 
   const providerOptions = {
@@ -57,20 +57,21 @@ function AuthProvider({ children }: AuthProviderProps) {
     // @ts-ignore
     await web3Modal.clearCachedProvider();
     // @ts-ignore
-    const provider = await web3Modal.connect();
+    const web3modalProvider = await web3Modal.connect();
     // walletconect
-    if (provider?.accounts?.length) {
-      await setAccount(provider?.accounts[0]);
-      await setChainId(provider?.chainId);
-      await setProviderContext(provider);
+    if (web3modalProvider?.accounts?.length) {
+      await setAccount(web3modalProvider?.accounts[0]);
+      await setChainId(web3modalProvider?.chainId);
+      // await setProviderContext(web3modalProvider);
     }
     // metamask
     else {
-      const web3Provider = new providers.Web3Provider(provider);
+      const web3Provider = new providers.Web3Provider(web3modalProvider);
       const signer = web3Provider.getSigner();
       setAccount(await signer.getAddress());
       setChainId(await (await web3Provider.getNetwork()).chainId);
-      await setProviderContext(web3Provider);
+      setProvider(window.web3.currentProvider);
+      // await setProviderContext(web3Provider);
     }
   }, []);
 
@@ -83,16 +84,16 @@ function AuthProvider({ children }: AuthProviderProps) {
         theme: 'dark',
       });
     // @ts-ignore
-    const provider = await web3Modal.connect();
+    const web3modalProvider = await web3Modal.connect();
 
     // @ts-ignore
     await web3Modal.clearCachedProvider();
-    if (provider?.accounts?.length) {
-      await provider.disconnect();
+    if (web3modalProvider?.accounts?.length) {
+      await web3modalProvider.disconnect();
     }
     setAccount('');
     setChainId(0);
-    setProviderContext('');
+    setProvider('');
   }
 
   async function loadAccount() {
@@ -107,18 +108,19 @@ function AuthProvider({ children }: AuthProviderProps) {
     // @ts-ignore
     if (web3Modal.cachedProvider) {
       // @ts-ignore
-      const provider = await web3Modal.connect();
+      const web3modalProvider = await web3Modal.connect();
 
-      if (provider?.accounts?.length) {
-        await setAccount(provider?.accounts[0]);
-        await setChainId(provider?.chainId);
-        await setProviderContext(provider);
+      if (web3modalProvider?.accounts?.length) {
+        await setAccount(web3modalProvider?.accounts[0]);
+        await setChainId(web3modalProvider?.chainId);
+        // await setProviderContext(web3modalProvider);
       } else {
-        const web3Provider = new providers.Web3Provider(provider);
+        const web3Provider = new providers.Web3Provider(web3modalProvider);
         const signer = web3Provider.getSigner();
         setAccount(await signer.getAddress());
         setChainId(await (await web3Provider.getNetwork()).chainId);
-        await setProviderContext(web3Provider);
+        setProvider(window.web3.currentProvider);
+        // await setProviderContext(web3Provider);
       }
     }
   }
@@ -132,7 +134,7 @@ function AuthProvider({ children }: AuthProviderProps) {
       value={{
         account,
         chainId,
-        providerContext,
+        provider,
         loading,
         signIn,
         signOut,

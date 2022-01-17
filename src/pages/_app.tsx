@@ -4,13 +4,15 @@ import { appWithTranslation } from 'next-i18next';
 import { ThemeProvider } from 'next-themes';
 import type { AppProps } from 'next/app';
 
-import { AuthProvider } from '@/contexts/AuthContext';
+import { AuthProvider, MasterNameProvider } from '@/contexts';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider enableSystem={true} attribute="class">
       <AuthProvider>
-        <Component {...pageProps} />
+        <MasterNameProvider>
+          <Component {...pageProps} />
+        </MasterNameProvider>
       </AuthProvider>
     </ThemeProvider>
   );
