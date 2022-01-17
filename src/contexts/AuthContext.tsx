@@ -62,7 +62,7 @@ function AuthProvider({ children }: AuthProviderProps) {
     if (web3modalProvider?.accounts?.length) {
       await setAccount(web3modalProvider?.accounts[0]);
       await setChainId(web3modalProvider?.chainId);
-      // await setProviderContext(web3modalProvider);
+      setProvider(web3modalProvider);
     }
     // metamask
     else {
@@ -71,7 +71,6 @@ function AuthProvider({ children }: AuthProviderProps) {
       setAccount(await signer.getAddress());
       setChainId(await (await web3Provider.getNetwork()).chainId);
       setProvider(window.web3.currentProvider);
-      // await setProviderContext(web3Provider);
     }
   }, []);
 
@@ -113,14 +112,13 @@ function AuthProvider({ children }: AuthProviderProps) {
       if (web3modalProvider?.accounts?.length) {
         await setAccount(web3modalProvider?.accounts[0]);
         await setChainId(web3modalProvider?.chainId);
-        // await setProviderContext(web3modalProvider);
+        setProvider(web3modalProvider);
       } else {
         const web3Provider = new providers.Web3Provider(web3modalProvider);
         const signer = web3Provider.getSigner();
         setAccount(await signer.getAddress());
         setChainId(await (await web3Provider.getNetwork()).chainId);
         setProvider(window.web3.currentProvider);
-        // await setProviderContext(web3Provider);
       }
     }
   }

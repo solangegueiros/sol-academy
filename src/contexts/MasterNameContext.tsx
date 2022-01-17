@@ -78,6 +78,9 @@ function MasterNameProvider({ children }: MasterNameProviderProps) {
   useEffect(() => {
     if (account) {
       VerifyMasterName();
+    } else {
+      setHaveMasterName(false);
+      setName('');
     }
   }, [account, VerifyMasterName]);
 
