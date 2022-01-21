@@ -2,6 +2,8 @@ import type { NextPage, GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Head from 'next/head';
 
+import { useAuth } from '@/contexts/AuthContext';
+
 import {
   B4HHeader,
   B4HMasterName,
@@ -9,6 +11,8 @@ import {
 } from '@/components/molecules';
 
 const Profile: NextPage = () => {
+  const { account, chainId } = useAuth();
+
   return (
     <div>
       <Head>
@@ -21,9 +25,7 @@ const Profile: NextPage = () => {
       </Head>
       <B4HHeader />
       <main>
-        <B4HNameContract
-          ownerAddress={'0x6585d1ba166aeBF1e6A88f816e3024BF324D21ad'}
-        />
+        <B4HNameContract ownerAddress={account} chainId={chainId} />
         <B4HMasterName />
       </main>
       <footer></footer>

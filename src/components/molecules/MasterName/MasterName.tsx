@@ -1,15 +1,22 @@
 import React, { memo, useEffect, useState } from 'react';
 
+import { useMasterName } from '@/contexts';
+
 import { B4HButton, B4HTextField } from '@/components/atoms';
 
 export const B4HMasterName: React.FC = memo(() => {
   const [mounted, setMounted] = useState<boolean>(false);
-  const [name, setName] = useState('');
-  const [address, setAddress] = useState('');
+  const [newName, setNewName] = useState('');
+  const [newAddress, setNewAddress] = useState('');
+  const { name, haveMasterName, RegisterMasterName, DeleteMasterName } =
+    useMasterName();
 
   useEffect(() => {
     setMounted(true);
-  }, []);
+    if (haveMasterName) {
+      setNewName(name);
+    }
+  }, [haveMasterName, name]);
 
   if (!mounted) return null;
 
@@ -32,8 +39,8 @@ export const B4HMasterName: React.FC = memo(() => {
             <B4HTextField
               placeholder="Name"
               type="text"
-              value={name}
-              onChange={setName}
+              value={newName}
+              onChange={setNewName}
             />
           </div>
         </div>
@@ -42,17 +49,24 @@ export const B4HMasterName: React.FC = memo(() => {
             <B4HTextField
               placeholder="Address"
               type="text"
-              value={address}
-              onChange={setAddress}
+              value={newAddress}
+              onChange={setNewAddress}
             />
           </div>
         </div>
         <div className="flex -mx-3">
           <div className="w-1/2 px-3 mb-5">
-            <B4HButton title="Set Name" />
+            <B4HButton
+              title="Set Name"
+              onClick={() => RegisterMasterName(newAddress, newName)}
+            />
           </div>
           <div className="w-1/2 px-3 mb-5">
-            <B4HButton title="Delete Name" bgColor="red" />
+            <B4HButton
+              title="Delete Name"
+              bgColor="red"
+              onClick={DeleteMasterName}
+            />
           </div>
         </div>
       </div>

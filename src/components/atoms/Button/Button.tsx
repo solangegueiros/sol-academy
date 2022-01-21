@@ -3,7 +3,7 @@ import React, { memo } from 'react';
 import { B4HButtonProps } from './types';
 
 export const B4HButton: React.FC<B4HButtonProps> = memo(
-  ({ title, bgColor }) => {
+  ({ title, bgColor, onClick }) => {
     return (
       <button
         className={`
@@ -13,6 +13,7 @@ export const B4HButton: React.FC<B4HButtonProps> = memo(
           ${bgColor === 'red' ? 'focus:bg-red-600' : 'focus:bg-indigo-700'}
           text-white 
           rounded-lg px-3 py-3 font-semibold`}
+        onClick={onClick}
       >
         {title}
       </button>

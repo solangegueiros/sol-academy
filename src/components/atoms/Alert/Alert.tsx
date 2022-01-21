@@ -1,23 +1,39 @@
-import React, { memo } from 'react';
+import React, { memo, useState } from 'react';
 
-export const B4HAlert: React.FC = memo(() => {
-  return (
-    <div className="flex items-center space-x-4 rounded-sm bg-yellow-200 text-gray-700 mt-10 mb-8 p-1">
-      <div className="flex items-center self-stretch justify-center">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 20 20"
-          fill="currentColor"
-          className="w-10 h-10"
+import { B4HAlertProps, ETypes } from './types';
+
+export const B4HAlert: React.FC<B4HAlertProps> = memo(({ type, text }) => {
+  const [showAlert, setShowAlert] = useState<boolean>(true);
+  const textColor = ['text-yellow-500', 'text-red-500', 'text-green-500'];
+  const bgColor = ['bg-yellow-500', 'bg-red-500', 'bg-green-500'];
+
+  return showAlert ? (
+    <div
+      className="flex justify-center items-center self-center text-center bottom-7 fixed z-10 -left-0 w-full"
+      role="alert"
+    >
+      <div className="p-2">
+        <div
+          className={`inline-flex items-center bg-white leading-none rounded-full p-2 shadow text-teal text-lg ${textColor[type]}`}
         >
-          <path
-            fillRule="evenodd"
-            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
-            clipRule="evenodd"
-          ></path>
-        </svg>
+          <span
+            className={`inline-flex text-white rounded-full h-6 px-3 justify-center items-center ${bgColor[type]}`}
+          >
+            {ETypes[type]}
+          </span>
+          <span className="inline-flex px-2">{text}</span>
+          <button
+            type="button"
+            onClick={() => {
+              setShowAlert(false);
+            }}
+          >
+            <span className="inline-flex px-2">×</span>
+          </button>
+        </div>
       </div>
-      <span>Name Contract has not been deployed</span>
     </div>
+  ) : (
+    <> </>
   );
 });
