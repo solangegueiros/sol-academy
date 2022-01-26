@@ -2,7 +2,7 @@ import type { NextPage, GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Head from 'next/head';
 
-import { B4HHeader } from '@/components/molecules';
+import { B4HHeader, B4HSidebar } from '@/components/molecules';
 
 const Classes: NextPage = () => {
   return (
@@ -16,7 +16,9 @@ const Classes: NextPage = () => {
         />
       </Head>
       <B4HHeader />
-      <main></main>
+      <main>
+        <B4HSidebar />
+      </main>
       <footer></footer>
     </div>
   );
