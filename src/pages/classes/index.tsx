@@ -16,8 +16,11 @@ const Classes: NextPage = () => {
         />
       </Head>
       <B4HHeader />
-      <main>
+      <main className="flex mt-8 max-w-screen-xl px-4 mx-auto">
         <B4HSidebar />
+        <div>
+          <h1> details </h1>
+        </div>
       </main>
       <footer></footer>
     </div>

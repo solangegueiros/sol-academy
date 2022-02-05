@@ -14,7 +14,7 @@
             "es": "Conectando a Academy",
             "pt": "Conectando-se à Academy"
           },
-          "path": "/courses/dev/01/connecting-to-academy"
+          "path": "/classes/01/connecting-to-academy"
         },
         {
           "title": {
@@ -22,7 +22,7 @@
             "es": "Primera transferencia",
             "pt": "Primeira transferência"
           },
-          "path": "/courses/dev/01/first-transfer"
+          "path": "/classes/01/first-transfer"
         }  
       ]
     },
@@ -40,7 +40,7 @@
             "es": "Overview",
             "pt": "Overview"
           },
-          "path": "/courses/dev/02/intro"
+          "path": "/classes/02/intro"
         }
       ]
     }

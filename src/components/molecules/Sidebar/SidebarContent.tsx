@@ -63,9 +63,13 @@ export const B4HSidebarContent: React.FC<ContentProps> = memo(
                   <a
                     key={submenu.path}
                     className="block px-16 py-2 text-sm hover:bg-green-500 rounded-lg"
-                    href="#"
+                    href={submenu.path}
                   >
-                    {submenu.title.en}
+                    {currentLang === 'en'
+                      ? submenu.title.en
+                      : currentLang === 'es'
+                      ? submenu.title.es
+                      : submenu.title.pt}
                   </a>
                 );
               })}
