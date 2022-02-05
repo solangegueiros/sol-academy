@@ -1,12 +1,10 @@
 import React from 'react';
 
-const B4HPostView = ({ title, description }: any) => {
+export const B4HPostView = () => {
   return (
-    <div>
-      <div>${title}</div>
-      <div>${description}</div>
+    <div className="m-2">
+      <div>Teste titulo</div>
+      <div>teste descricao</div>
     </div>
   );
 };
-
-export default B4HPostView;
