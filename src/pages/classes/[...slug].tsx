@@ -10,7 +10,7 @@ import glob from 'glob';
 import matter from 'gray-matter';
 import path from 'path';
 
-import { POSTS_PATH, postFilePaths, normalizeUrl } from '@/utils';
+import { POSTS_PATH, postFilePaths } from '@/utils';
 
 import { B4HHeader, B4HPostView, B4HSidebar } from '@/components/molecules';
 
@@ -111,7 +111,11 @@ function Classes({ source, slug, frontmatter }: any) {
         />
         <B4HSidebar />
         <B4HPostView>
-          <MDXRemote {...source} components={slug} />
+          <p className="text-4xl font-extrabold text-green-600 mb-3">
+            {frontmatter.title}
+          </p>
+          <p className="mb-10">{frontmatter.description}</p>
+          <MDXRemote {...source} lazy />
         </B4HPostView>
       </main>
       <footer></footer>
