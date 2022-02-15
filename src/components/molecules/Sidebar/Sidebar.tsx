@@ -12,7 +12,7 @@ export const B4HSidebar: React.FC = memo(() => {
   const currentLang = router.locale;
 
   return (
-    <div className="flex flex-col w-full" style={{ flexBasis: '25%' }}>
+    <div className="flex flex-col w-full basis-1/4">
       {classes.routes.map((menu: MenuProps, idx) => (
         <B4HSidebarContent key={idx} currentLang={currentLang} menu={menu} />
       ))}
