@@ -14,11 +14,11 @@ export const B4HSidebarContent: React.FC<ContentProps> = memo(
       return (
         <div>
           <button
-            className="flex items-center justify-between text-left w-full px-6 py-2  focus:outline-none"
+            className="flex items-center justify-between text-left w-full md:px-6 py-2  focus:outline-none"
             onClick={() => handleMenu()}
           >
             <span className="flex items-center">
-              <span className="mx-4 font-medium">
+              <span className="md:mx-2 font-medium">
                 {currentLang === 'en'
                   ? menu.title.en
                   : currentLang === 'es'
@@ -62,8 +62,12 @@ export const B4HSidebarContent: React.FC<ContentProps> = memo(
                 return (
                   <a
                     key={submenu.path}
-                    className="block px-16 py-2 text-sm hover:bg-green-500 rounded-lg"
-                    href={submenu.path}
+                    className="block md:px-16 px-8 py-2 text-sm hover:bg-green-500 rounded-lg"
+                    href={
+                      currentLang === 'en'
+                        ? `${submenu.path}`
+                        : `/${currentLang}/${submenu.path}`
+                    }
                   >
                     {currentLang === 'en'
                       ? submenu.title.en

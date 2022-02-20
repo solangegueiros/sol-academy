@@ -1,3 +1,5 @@
+import React, { useState } from 'react';
+
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { MDXRemote } from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
@@ -83,6 +85,12 @@ export const getStaticProps = async ({ locale, params }: any) => {
 };
 
 function Classes({ source, slug, frontmatter }: any) {
+  const [menuOpen, setMenuOpen] = useState<boolean>(false);
+
+  function handleMenu() {
+    setMenuOpen(!menuOpen);
+  }
+
   return (
     <div>
       <Head>
@@ -94,7 +102,7 @@ function Classes({ source, slug, frontmatter }: any) {
         />
       </Head>
       <B4HHeader />
-      <main className="flex mt-8 max-w-screen-xl px-4 mx-auto">
+      <main className="md:flex my-8 max-w-screen-xl px-4 mx-auto">
         <NextSeo
           title={frontmatter.title}
           description={frontmatter.description}
@@ -109,8 +117,8 @@ function Classes({ source, slug, frontmatter }: any) {
             },
           }}
         />
-        <B4HSidebar />
-        <B4HPostView>
+        <B4HSidebar menuOpen={menuOpen} handleMenu={handleMenu} />
+        <B4HPostView menuOpen={menuOpen}>
           <p className="text-4xl font-extrabold text-green-600 mb-3">
             {frontmatter.title}
           </p>
