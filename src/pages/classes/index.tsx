@@ -16,8 +16,8 @@ const Classes: NextPage = () => {
         />
       </Head>
       <B4HHeader />
-      <main className="flex mt-8 max-w-screen-xl px-4 mx-auto">
-        <B4HSidebar />
+      <main className="md:flex mt-8 max-w-screen-xl px-4 mx-auto">
+        <B4HSidebar menuOpen={true} handleMenu={() => {}} />
         <B4HPostView />
       </main>
       <footer></footer>

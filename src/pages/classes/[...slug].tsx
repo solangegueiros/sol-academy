@@ -36,6 +36,9 @@ export const getStaticPaths = async () => {
         }`,
       ],
     },
+    locale: `${
+      postPath.substring(postPath.lastIndexOf('/') + 1).split('.')[0]
+    }`,
   }));
 
   return {
@@ -72,14 +75,12 @@ export const getStaticProps = async ({ locale, params }: any) => {
     };
   }
 
-  const ssrTranslations = await serverSideTranslations(locale, ['common']);
-
   return {
     props: {
       frontmatter: data,
       source: mdxSource,
       slug: params.slug,
-      ...ssrTranslations,
+      ...(await serverSideTranslations(locale, ['common'])),
     },
   };
 };

@@ -1,10 +1,14 @@
-import React, { memo, useCallback, useState } from 'react';
+import React, { memo, useCallback, useEffect, useState } from 'react';
+
+import NextLink from 'next/link';
+import { useRouter } from 'next/router';
 
 import { SubmenuProps, ContentProps } from './types';
 
 export const B4HSidebarContent: React.FC<ContentProps> = memo(
   ({ currentLang, menu }) => {
     const [menuOpen, setMenuOpen] = useState(false);
+    const { asPath } = useRouter();
 
     const handleMenu = useCallback(() => {
       setMenuOpen(!menuOpen);
@@ -60,28 +64,29 @@ export const B4HSidebarContent: React.FC<ContentProps> = memo(
             <div>
               {menu.routes.map((submenu: SubmenuProps) => {
                 return (
-                  <a
+                  <div
+                    className={`block md:px-16 px-8 py-2 text-sm hover:bg-green-500 rounded-lg ${
+                      asPath === submenu.path
+                        ? 'rounded-lg border border-green-500'
+                        : ''
+                    }`}
                     key={submenu.path}
-                    className="block md:px-16 px-8 py-2 text-sm hover:bg-green-500 rounded-lg"
-                    href={
-                      currentLang === 'en'
-                        ? `${submenu.path}`
-                        : `/${currentLang}/${submenu.path}`
-                    }
                   >
-                    {currentLang === 'en'
-                      ? submenu.title.en
-                      : currentLang === 'es'
-                      ? submenu.title.es
-                      : submenu.title.pt}
-                  </a>
+                    <NextLink href={submenu.path} locale={currentLang}>
+                      {currentLang === 'en'
+                        ? submenu.title.en
+                        : currentLang === 'es'
+                        ? submenu.title.es
+                        : submenu.title.pt}
+                    </NextLink>
+                  </div>
                 );
               })}
             </div>
           )}
         </div>
       );
-    }, [handleMenu, menuOpen, currentLang, menu]);
+    }, [handleMenu, menuOpen, currentLang, menu, asPath]);
 
     return renderMenuItems();
   }
