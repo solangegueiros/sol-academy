@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useEffect, useState } from 'react';
+import React, { memo, useCallback, useState } from 'react';
 
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
@@ -18,7 +18,7 @@ export const B4HSidebarContent: React.FC<ContentProps> = memo(
       return (
         <div>
           <button
-            className="flex items-center justify-between text-left w-full md:px-6 py-2  focus:outline-none"
+            className="flex items-center justify-between text-left w-full md:px-6 py-2 focus:outline-none"
             onClick={() => handleMenu()}
           >
             <span className="flex items-center">

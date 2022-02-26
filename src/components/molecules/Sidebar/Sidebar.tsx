@@ -30,6 +30,7 @@ export const B4HSidebar: React.FC<any> = memo(({ menuOpen, handleMenu }) => {
         className={`md:flex flex-col w-full basis-1/4 ${
           menuOpen ? 'flex' : 'hidden'
         }`}
+        data-cy="sidebarOption"
       >
         {classes.routes.map((menu: MenuProps, idx) => (
           <B4HSidebarContent key={idx} currentLang={currentLang} menu={menu} />
