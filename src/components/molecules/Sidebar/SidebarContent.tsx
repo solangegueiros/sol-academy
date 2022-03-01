@@ -22,7 +22,7 @@ export const B4HSidebarContent: React.FC<ContentProps> = memo(
             onClick={() => handleMenu()}
           >
             <span className="flex items-center">
-              <span className="md:mx-2 font-medium">
+              <span className="md:mx-2 font-medium capitalize">
                 {currentLang === 'en'
                   ? menu.title.en
                   : currentLang === 'es'
