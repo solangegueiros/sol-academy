@@ -1,0 +1,48 @@
+{
+  "routes": [
+    {
+      "title": {
+        "en": "01 - wallets",
+        "es": "01 - billeteras",
+        "pt": "01 - Wallets"
+      },
+      "heading": true,
+      "routes": [
+        {
+          "title": {
+            "en": "Connecting to Academy",
+            "es": "Conectando a Academy",
+            "pt": "Conectando-se à Academy"
+          },
+          "path": "/classes/01/connecting-to-academy"
+        },
+        {
+          "title": {
+            "en": "First transfer",
+            "es": "Primera transferencia",
+            "pt": "Primeira transferência"
+          },
+          "path": "/classes/01/first-transfer"
+        }  
+      ]
+    },
+    {
+      "title": {
+        "en": "02 - smart contracts intro",
+        "es": "02 - smart contracts intro",
+        "pt": "02 - smart contracts intro"
+      },
+      "heading": true,
+      "routes": [
+        {
+          "title": {
+            "en": "Overview",
+            "es": "Overview",
+            "pt": "Overview"
+          },
+          "path": "/classes/02/intro"
+        }
+      ]
+    }
+  ]
+}

@@ -19,12 +19,12 @@ export const B4HNameContract: React.FC<any> = memo(
       <>
         <div
           className={`
-        w-full px-4 mx-auto mt-8 border-2
-        shadow-lg
-      dark:border-gray-600
-        rounded-lg
-        md:w-1/2 md:items-center md:justify-between md:px-6 lg:px-8
-      `}
+            w-full px-4 mx-auto mt-8 border-2
+            shadow-lg
+          dark:border-gray-600
+            rounded-lg
+            md:w-1/2 md:items-center md:justify-between md:px-6 lg:px-8
+          `}
         >
           <B4HShowName name={name} />
           <div className="w-full mx-auto overflow-auto mb-8">
